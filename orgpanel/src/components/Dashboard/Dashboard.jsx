@@ -27,6 +27,7 @@ import MainPage from "../MainPage/MainPage";
 import { useState } from "react";
 import UsersPage from "../UsersPage/UsersPage";
 import StatsPage from "../StatsPage/StatsPage";
+import { useEffect } from "react";
 
 export const PageContext = React.createContext();
 
@@ -103,6 +104,26 @@ export default function Dashboard() {
 		setOpen(!open);
 	};
 	const [page, setPage] = useState(1);
+
+	const [rows, setRows] = useState([]);
+	useEffect(() => {
+		const data = [
+			{ name: "Cupcake", numV: 305, lastLoc: 3.7, rating: 67 },
+			{ name: "Donut", numV: 452, lastLoc: 25.0, rating: 51 },
+			{ name: "Eclair", numV: 262, lastLoc: 16.0, rating: 24 },
+			{ name: "Frozen yoghurt", numV: 159, lastLoc: 6.0, rating: 24 },
+			{ name: "Gingerbread", numV: 356, lastLoc: 16.0, rating: 49 },
+			{ name: "Honeycomb", numV: 408, lastLoc: 3.2, rating: 87 },
+			{ name: "Ice cream sandwich", numV: 237, lastLoc: 9.0, rating: 37 },
+			{ name: "Jelly Bean", numV: 375, lastLoc: 0.0, rating: 94 },
+			{ name: "KitKat", numV: 518, lastLoc: 26.0, rating: 65 },
+			{ name: "Lollipop", numV: 392, lastLoc: 0.2, rating: 98 },
+			{ name: "Marshmallow", numV: 318, lastLoc: 0, rating: 81 },
+			{ name: "Nougat", numV: 360, lastLoc: 19.0, rating: 9 },
+			{ name: "Oreo", numV: 437, lastLoc: 18.0, rating: 63 },
+		];
+		setRows(data);
+	}, []);
 
 	return (
 		<PageContext.Provider value={[page, setPage]}>
@@ -208,7 +229,7 @@ export default function Dashboard() {
 								{page === 1 ? (
 									<MainPage />
 								) : page === 2 ? (
-									<UsersPage />
+									<UsersPage rows={rows} />
 								) : page === 3 ? (
 									<StatsPage />
 								) : (
